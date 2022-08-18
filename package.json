@@ -1,0 +1,36 @@
+{
+  "name": "odin-weather-app",
+  "version": "1.0.0",
+  "description": "This app is to show knowledge of api, promises, and async/await",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asianpersuas10n/odin-weather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asianpersuas10n/odin-weather-app/issues"
+  },
+  "homepage": "https://github.com/asianpersuas10n/odin-weather-app#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "prettier": "^2.7.1",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1"
+  }
+}
