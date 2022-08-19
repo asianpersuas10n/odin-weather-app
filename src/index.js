@@ -22,6 +22,20 @@ async function loadApi(location) {
     `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&APPID=36b1d3fef9cba962fe3d291d6179522c`
   );
   const request = await response.json();
-  return console.log(request);
+  return request;
 }
-loadApi('Pampa');
+
+async function getData(location) {
+  const data = await loadApi(location).catch((err) => {
+    // add error message to place on page here
+    console.log(err);
+  });
+  const name = data.name;
+  const main = data.main;
+  const cloudPercent = data.clouds;
+  const weatherTemps = data.weather;
+  const wind = data.wind;
+  return { name, main, cloudPercent, weatherTemps, wind };
+}
+
+getData('pampa');
