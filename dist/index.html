@@ -7,12 +7,35 @@
   <title>Weather App</title>
 </head>
 <body>
-  <div>
-    <div>
-      <label for="city">City</label>
-      <input type="text" id="city" minlength="1" required>
+  <div id="mainContainer">
+    <div class="nameContainer">
+      <span id="name"></span>
     </div>
-    <div><button id="submit">Check Weather</button></div>
+    <div class="tempContainer">
+      <img id="tempIcon" src="#">
+      <div class="temp">
+        &#176
+      </div>
+      <div class="desc"></div>
+      <div class="hiLow"></div>
+    </div>
+    <div class="searchContainer">
+      <div class="form">
+        <label for="city">City</label>
+        <span class="outline">
+          <input type="text" id="city" minlength="1" required placeholder="New York, Chicago, etc.">
+          <img id="submit" src="./img/search.png" alt="search icon">
+        </span>
+      </div>
+    </div>
+    <div>
+      <div class="infoContainer">
+        <div id="wind">windspeed</div>
+        <div id="cloud">cloudyness</div>
+        <div id="feelsLike">feels like</div>
+        <div id="humid">humidity</div>
+      </div>
+    </div>
   </div>
   <script src="./main.js"></script>
 </body>

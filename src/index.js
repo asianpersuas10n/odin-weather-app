@@ -11,9 +11,8 @@ import './style.css';
     return time2 - time1;
  *
  */
-
 const submit = document.querySelector('#submit');
-const location = '';
+const forC = 'F';
 
 async function loadApi(location) {
   const response = await fetch(
@@ -30,17 +29,45 @@ async function getData(location) {
   });
   const name = data.name;
   const main = data.main;
-  const cloudPercent = data.clouds;
-  const weatherTemps = data.weather;
-  const wind = data.wind;
-  console.log({ name, main, cloudPercent, weatherTemps, wind });
-  return { name, main, cloudPercent, weatherTemps, wind };
+  const cloudPercent = data.clouds.all;
+  const weather = data.weather;
+  const wind = data.wind.speed;
+  return { name, main, cloudPercent, weather, wind };
 }
 
-function updateUI(uiData) {}
+async function updateUI(uiData) {
+  const ui = await uiData;
+  const htmlName = document.querySelector('#name');
+  const tempIcon = document.querySelector('#tempIcon');
+  const temp = document.querySelector('.temp');
+  const desc = document.querySelector('.desc');
+  const hiLow = document.querySelector('.hiLow');
+  const htmlWind = document.querySelector('#wind');
+  const htmlCloud = document.querySelector('#cloud');
+  const feelsLike = document.querySelector('#feelsLike');
+  const humidity = document.querySelector('#humid');
+  const span1 = document.createElement('span');
+  const span2 = document.createElement('span');
+  htmlName.textContent = ui.name;
+  desc.textContent = ui.weather[0].description;
+  temp.textContent = `${Math.round(ui.main.temp)}°${forC}`;
+  tempIcon.src = `http://openweathermap.org/img/wn/${ui.weather[0].icon}@2x.png`;
+  hiLow.innerHTML = '';
+  span1.textContent = `H = ${Math.round(ui.main.temp_max)}°${forC}`;
+  span2.textContent = `L = ${Math.round(ui.main.temp_min)}°${forC}`;
+  hiLow.appendChild(span1);
+  hiLow.appendChild(span2);
+  htmlWind.textContent = `Wind Speed: ${ui.wind} MPH`;
+  htmlCloud.textContent = `Cloudyness: ${ui.cloudPercent}%`;
+  feelsLike.textContent = `Feels Like: ${Math.round(ui.main.feels_like)}`;
+  humidity.textContent = `Humidity: ${ui.main.humidity}`;
+  bodyImg();
+}
 
 submit.addEventListener('click', () => {
   const city = document.querySelector('#city').value;
   const evtData = getData(city);
   updateUI(evtData);
 });
+
+updateUI(getData('Dallas'));

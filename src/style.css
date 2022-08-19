@@ -1,0 +1,101 @@
+:root{
+  font-size: 24px;
+}
+
+body {
+  background-color: gray;
+  text-shadow: 0 0 4px black;
+  color: white;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  height: 90vh;
+}
+
+#mainContainer {
+  margin-top: 10vh;
+  grid-column: 2 / 3;
+}
+
+.nameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}
+
+.tempContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.temp {
+  font-size: 4rem;
+}
+
+#tempIcon {
+  height: 4rem;
+  width: 4rem;
+}
+
+.hiLow span:first-child {
+  padding-right: 1rem;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#submit {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  top: 6px;
+}
+
+.outline {
+  border-bottom: 2px solid white;
+  padding-right: .5rem;
+  padding-bottom: .25rem;
+}
+
+#city {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+#city::placeholder {
+  color: rgb(211, 211, 211);
+}
+
+input, select, textarea{
+  color: white;
+}
+
+#city:focus, input:focus {
+  color: white;
+}
+
+.infoContainer {
+  background-color: rgba(173, 216, 230, 0.678);
+  border-radius: .5rem;
+  padding: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.infoContainer div {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
