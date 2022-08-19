@@ -3,9 +3,6 @@ import './style.css';
 /*
  * https://api.openweathermap.org/data/2.5/weather?units=imperial&q=Pampa&APPID=36b1d3fef9cba962fe3d291d6179522c
  *
- * function to call api / will take location and return weather data
- * function that processes the JSON data from the api / return an object with only data the app needs
- * make form for the user input of location
  * set up the display of the page to show the info
  * optionally add a loading bit while the api is loaded 
  *     let time1 = performance.now();
@@ -15,6 +12,7 @@ import './style.css';
  *
  */
 
+const submit = document.querySelector('#submit');
 const location = '';
 
 async function loadApi(location) {
@@ -35,7 +33,14 @@ async function getData(location) {
   const cloudPercent = data.clouds;
   const weatherTemps = data.weather;
   const wind = data.wind;
+  console.log({ name, main, cloudPercent, weatherTemps, wind });
   return { name, main, cloudPercent, weatherTemps, wind };
 }
 
-getData('pampa');
+function updateUI(uiData) {}
+
+submit.addEventListener('click', () => {
+  const city = document.querySelector('#city').value;
+  const evtData = getData(city);
+  updateUI(evtData);
+});
