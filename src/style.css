@@ -7,13 +7,16 @@ body {
   text-shadow: 0 0 4px black;
   color: white;
   display:grid;
-  grid-template-columns: 1fr auto 1fr;
-  height: 90vh;
+  grid-template-columns: 1fr auto 1fr ;
+  grid-template-rows: 1fr auto;
+  background-repeat:   no-repeat;
+  background-position: center;   
 }
 
 #mainContainer {
   margin-top: 10vh;
   grid-column: 2 / 3;
+  height: 80vh;
 }
 
 .nameContainer {
@@ -99,3 +102,36 @@ input, select, textarea{
   margin-bottom: 1rem;
 }
 
+footer {
+  height: 8vh;
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}
+footer div,
+footer #switch {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#switch {
+  margin-left: 7rem;
+}
+
+a {
+  color: white;
+  text-decoration: none
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+a:active {
+  color: white;
+}

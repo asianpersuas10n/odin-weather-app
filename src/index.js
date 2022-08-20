@@ -1,9 +1,13 @@
 import './style.css';
+import thunderstorm from './img/thunderstorm.jpg';
+import drizzle from './img/drizzle.jpg';
+import rain from './img/rain.jpg';
+import snow from './img/snow.jpg';
+import fog from './img/snow.jpg';
+import noWeatherDay from './img/noWeatherDay.jpg';
+import noWeatherNight from './img/noWeatherNight.jpg';
 
 /*
- * https://api.openweathermap.org/data/2.5/weather?units=imperial&q=Pampa&APPID=36b1d3fef9cba962fe3d291d6179522c
- *
- * set up the display of the page to show the info
  * optionally add a loading bit while the api is loaded 
  *     let time1 = performance.now();
     await fetch(testURL);
@@ -12,13 +16,22 @@ import './style.css';
  *
  */
 const submit = document.querySelector('#submit');
-const forC = 'F';
+const footer = document.querySelector('#footerDiv');
+const change = document.querySelector('#switch');
+const regex = /\d{2}n/;
+let forC = 'F';
+let imperialOrMetric = 'imperial';
+let mphOrKph = 'MPH';
+let dayOrNight = 'd';
 
 async function loadApi(location) {
+  let time1 = performance.now();
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&APPID=36b1d3fef9cba962fe3d291d6179522c`
+    `https://api.openweathermap.org/data/2.5/weather?units=${imperialOrMetric}&q=${location}&APPID=36b1d3fef9cba962fe3d291d6179522c`
   );
   const request = await response.json();
+  let time2 = performance.now();
+  console.log('last response time took ' + (time2 - time1) + ' milliseconds');
   return request;
 }
 
@@ -37,6 +50,11 @@ async function getData(location) {
 
 async function updateUI(uiData) {
   const ui = await uiData;
+  if (regex.test(ui.weather[0].icon)) {
+    dayOrNight = 'n';
+  } else {
+    dayOrNight = 'd';
+  }
   const htmlName = document.querySelector('#name');
   const tempIcon = document.querySelector('#tempIcon');
   const temp = document.querySelector('.temp');
@@ -57,16 +75,74 @@ async function updateUI(uiData) {
   span2.textContent = `L = ${Math.round(ui.main.temp_min)}°${forC}`;
   hiLow.appendChild(span1);
   hiLow.appendChild(span2);
-  htmlWind.textContent = `Wind Speed: ${ui.wind} MPH`;
+  htmlWind.textContent = `Wind Speed: ${ui.wind} ${mphOrKph}`;
   htmlCloud.textContent = `Cloudyness: ${ui.cloudPercent}%`;
   feelsLike.textContent = `Feels Like: ${Math.round(ui.main.feels_like)}`;
   humidity.textContent = `Humidity: ${ui.main.humidity}`;
-  bodyImg();
+  bodyImg(ui.weather[0].id);
+}
+
+async function bodyImg(id) {
+  const newID = Math.floor(Number(id) / 100);
+  let img;
+  switch (newID) {
+    case 2:
+      img = thunderstorm;
+      footer.innerHTML =
+        "Picture by&nbsp;<a href='https://unsplash.com/@mantasos'>Tasos Mansour</a>";
+      break;
+    case 3:
+      img = drizzle;
+      footer.innerHTML =
+        "Picture by&nbsp;<a href='https://unsplash.com/@synkevych'>Roman Synkevych</a>";
+      break;
+    case 5:
+      img = rain;
+      footer.innerHTML =
+        "Picture by&nbsp;<a href='https://unsplash.com/@livvie_bruce'>Liv Bruce</a>";
+      break;
+    case 6:
+      img = snow;
+      footer.innerHTML =
+        "Picture by&nbsp;<a href='https://unsplash.com/@aditya1702'>Aditya Vyas</a>";
+      break;
+    case 7:
+      img = fog;
+      footer.innerHTML =
+        "Picture by&nbsp;<a href='https://unsplash.com/@goranvuc'>Goran Vučićević</a>";
+      break;
+    case 8:
+      if (dayOrNight === 'n') {
+        img = noWeatherNight;
+        footer.innerHTML =
+          "Picture by&nbsp;<a href='https://unsplash.com/@krisroller'>Kristopher Roller</a>";
+        break;
+      }
+      img = noWeatherDay;
+      footer.innerHTML = "Picture by&nbsp;<a href='https://unsplash.com/@eyf'>e (just e)</a>";
+  }
+  const body = document.querySelector('body');
+  body.style.backgroundImage = `url(${img})`;
 }
 
 submit.addEventListener('click', () => {
   const city = document.querySelector('#city').value;
   const evtData = getData(city);
+  updateUI(evtData);
+});
+
+change.addEventListener('click', () => {
+  if (imperialOrMetric === 'imperial') {
+    imperialOrMetric = 'metric';
+    mphOrKph = 'KPH';
+    forC = 'C';
+  } else {
+    imperialOrMetric = 'imperial';
+    mphOrKph = 'MPH';
+    forC = 'F';
+  }
+  const name = document.querySelector('#name').textContent;
+  const evtData = getData(name);
   updateUI(evtData);
 });
 
