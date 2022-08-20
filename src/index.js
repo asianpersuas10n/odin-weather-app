@@ -7,14 +7,6 @@ import fog from './img/snow.jpg';
 import noWeatherDay from './img/noWeatherDay.jpg';
 import noWeatherNight from './img/noWeatherNight.jpg';
 
-/*
- * optionally add a loading bit while the api is loaded 
- *     let time1 = performance.now();
-    await fetch(testURL);
-    let time2 = performance.now();
-    return time2 - time1;
- *
- */
 const submit = document.querySelector('#submit');
 const footer = document.querySelector('#footerDiv');
 const change = document.querySelector('#switch');
